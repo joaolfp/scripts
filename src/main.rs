@@ -70,13 +70,13 @@ fn setup_rust_project() -> Result<()> {
     cmd!(
         "bash",
         "-c",
-        format!("cd .. && cargo new {} && cd {}", project_name, project_name)
+        format!("cargo new {} && cd {}", project_name, project_name)
     )
     .run()?;
 
     let cwd = env::current_dir()?;
     let src = cwd.join("rust_files.sh");
-    let dest = cwd.join("..").join(&project_name).join("rust_files.sh");
+    let dest = cwd.join(&project_name).join("rust_files.sh");
 
     if src.exists() {
         fs::copy(&src, &dest)?;
@@ -86,7 +86,7 @@ fn setup_rust_project() -> Result<()> {
         "bash",
         "-c",
         format!(
-            "cd ../{} && chmod +x rust_files.sh && ./rust_files.sh && rm rust_files.sh && rm -rf .git",
+            "cd {} && chmod +x rust_files.sh && ./rust_files.sh && rm rust_files.sh && rm -rf .git",
             project_name
         )
     )
