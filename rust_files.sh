@@ -188,7 +188,7 @@ RENOVATE_JSON_CONTENT='{
       "datasourceTemplate": "github-releases",
       "managerFilePatterns": ["/(^|/)rust-toolchain\\.toml$/"],
       "matchStrings": [
-        "channel\\s*=\\s*\\"(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)\\""
+        "channel\\s*=\\s*\"(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)\""
       ]
     }
   ]
