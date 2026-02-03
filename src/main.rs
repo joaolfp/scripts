@@ -75,12 +75,10 @@ fn setup_rust_project() -> Result<()> {
     .run()?;
 
     let cwd = env::current_dir()?;
-    let src = cwd.join("rust_files.sh");
     let dest = cwd.join(&project_name).join("rust_files.sh");
 
-    if src.exists() {
-        fs::copy(&src, &dest)?;
-    }
+    let script = include_str!("../rust_files.sh");
+    fs::write(&dest, script)?;
 
     cmd!(
         "bash",
