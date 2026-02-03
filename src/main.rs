@@ -1,6 +1,27 @@
 use anyhow::Result;
 use duct::cmd;
+use std::env;
+use std::fs;
 use std::io::{self, Write};
+
+#[derive(Debug, PartialEq)]
+enum MenuOption {
+    CloneRepos,
+    Releasor,
+    RustProject,
+    Quit,
+    Invalid,
+}
+
+fn parse_menu_option(input: &str) -> MenuOption {
+    match input.trim() {
+        "1" => MenuOption::CloneRepos,
+        "2" => MenuOption::Releasor,
+        "3" => MenuOption::RustProject,
+        "q" | "quit" | "exit" => MenuOption::Quit,
+        _ => MenuOption::Invalid,
+    }
+}
 
 fn main() -> Result<()> {
     println!();
@@ -16,23 +37,21 @@ fn main() -> Result<()> {
     let mut input = String::new();
     io::stdin().read_line(&mut input)?;
 
-    let option = input.trim();
-
-    match option {
-        "1" => {
+    match parse_menu_option(&input) {
+        MenuOption::CloneRepos => {
             cmd!("hoc", "clone").run()?;
         }
-        "2" => {
+        MenuOption::Releasor => {
             setup_releasor()?;
         }
-        "3" => {
+        MenuOption::RustProject => {
             setup_rust_project()?;
         }
-        "q" | "quit" | "exit" => {
+        MenuOption::Quit => {
             println!("Bye 👋");
             return Ok(());
         }
-        _ => {
+        MenuOption::Invalid => {
             println!("❌ This option does not exist");
         }
     }
@@ -51,7 +70,25 @@ fn setup_rust_project() -> Result<()> {
     cmd!(
         "bash",
         "-c",
-        format!("cd .. && cargo new {} && cd scripts", project_name)
+        format!("cd .. && cargo new {} && cd {}", project_name, project_name)
+    )
+    .run()?;
+
+    let cwd = env::current_dir()?;
+    let src = cwd.join("rust_files.sh");
+    let dest = cwd.join("..").join(&project_name).join("rust_files.sh");
+
+    if src.exists() {
+        fs::copy(&src, &dest)?;
+    }
+
+    cmd!(
+        "bash",
+        "-c",
+        format!(
+            "cd ../{} && chmod +x rust_files.sh && ./rust_files.sh && rm rust_files.sh && rm -rf .git",
+            project_name
+        )
     )
     .run()?;
     Ok(())
@@ -65,4 +102,38 @@ fn input_name(mut input_name: String, message: &str) -> Result<String> {
 
     let value = input_name.trim();
     Ok(value.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_menu_option_numeric() {
+        assert_eq!(parse_menu_option("1"), MenuOption::CloneRepos);
+        assert_eq!(parse_menu_option("2"), MenuOption::Releasor);
+        assert_eq!(parse_menu_option("3"), MenuOption::RustProject);
+    }
+
+    #[test]
+    fn test_parse_menu_option_quit_aliases() {
+        assert_eq!(parse_menu_option("q"), MenuOption::Quit);
+        assert_eq!(parse_menu_option("quit"), MenuOption::Quit);
+        assert_eq!(parse_menu_option("exit"), MenuOption::Quit);
+    }
+
+    #[test]
+    fn test_parse_menu_option_trims_whitespace() {
+        assert_eq!(parse_menu_option("1\n"), MenuOption::CloneRepos);
+        assert_eq!(parse_menu_option("  2  "), MenuOption::Releasor);
+        assert_eq!(parse_menu_option("q\n"), MenuOption::Quit);
+    }
+
+    #[test]
+    fn test_parse_menu_option_invalid() {
+        assert_eq!(parse_menu_option(""), MenuOption::Invalid);
+        assert_eq!(parse_menu_option("4"), MenuOption::Invalid);
+        assert_eq!(parse_menu_option("invalid"), MenuOption::Invalid);
+        assert_eq!(parse_menu_option("Q"), MenuOption::Invalid);
+    }
 }
