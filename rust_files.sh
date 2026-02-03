@@ -145,7 +145,7 @@ format_code_in_doc_comments = true
 '
 
 CI_YML_CONTENT='name: CI
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -169,10 +169,37 @@ jobs:
         run: mise test
 '
 
+RENOVATE_JSON_CONTENT='{
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "automerge": true,
+      "matchPackageNames": ["*"]
+    }
+  ],
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}} to v{{newVersion}}",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "depNameTemplate": "rust",
+      "packageNameTemplate": "rust-lang/rust",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": ["/(^|/)rust-toolchain\\.toml$/"],
+      "matchStrings": [
+        "channel\\s*=\\s*\\"(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)\\""
+      ]
+    }
+  ]
+}
+'
+
 write_file "mise.toml" "$MISE_TOML_CONTENT"
 write_file "CHANGELOG.md" "$CHANGELOG_MD_CONTENT"
 write_file "cliff.toml" "$CLIFF_TOML_CONTENT"
 write_file ".rustfmt.toml" "$RUSTFMT_TOML_CONTENT"
 write_file ".github/workflows/CI.yml" "$CI_YML_CONTENT"
+write_file ".github/renovate.json" "$RENOVATE_JSON_CONTENT"
 
 echo "🎉 Done."
