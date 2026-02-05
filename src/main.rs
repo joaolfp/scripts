@@ -12,6 +12,7 @@ enum MenuOption {
 	RustProject,
 	CloneMyRepos,
 	Xcode,
+	UpgradeMise,
 	Quit,
 	Invalid,
 }
@@ -23,6 +24,7 @@ fn parse_menu_option(input: &str) -> MenuOption {
 		"3" => MenuOption::RustProject,
 		"4" => MenuOption::CloneMyRepos,
 		"5" => MenuOption::Xcode,
+		"6" => MenuOption::UpgradeMise,
 		"q" | "quit" | "exit" => MenuOption::Quit,
 		_ => MenuOption::Invalid,
 	}
@@ -36,6 +38,7 @@ fn main() -> Result<()> {
 		println!("3 - Create rust project");
 		println!("4 - Clone my repositories");
 		println!("5 - Install Xcode");
+		println!("6 - Upgrade mise");
 		println!("q - Quit");
 
 		println!();
@@ -60,6 +63,9 @@ fn main() -> Result<()> {
 			}
 			MenuOption::Xcode => {
 				setup_xcode()?;
+			}
+			MenuOption::UpgradeMise => {
+				cmd!("brew", "upgrade", "mise").run()?;
 			}
 			MenuOption::Quit => {
 				println!("Bye 👋");
@@ -158,6 +164,7 @@ mod tests {
 		assert_eq!(parse_menu_option("3"), MenuOption::RustProject);
 		assert_eq!(parse_menu_option("4"), MenuOption::CloneMyRepos);
 		assert_eq!(parse_menu_option("5"), MenuOption::Xcode);
+		assert_eq!(parse_menu_option("6"), MenuOption::UpgradeMise);
 	}
 
 	#[test]
