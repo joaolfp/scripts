@@ -33,12 +33,12 @@ fn parse_menu_option(input: &str) -> MenuOption {
 fn main() -> Result<()> {
 	loop {
 		println!();
-		println!("1 - Clone HeroesOfCode's repositories");
-		println!("2 - Releasor");
-		println!("3 - Create rust project");
-		println!("4 - Clone my repositories");
-		println!("5 - Install Xcode");
-		println!("6 - Upgrade mise");
+		println!("1️⃣  Clone HeroesOfCode's repositories");
+		println!("2️⃣  Releasor");
+		println!("3️⃣  Create rust project");
+		println!("4️⃣  Clone my repositories");
+		println!("5️⃣  Install Xcode");
+		println!("6️⃣  Upgrade mise");
 		println!("q - Quit");
 
 		println!();
