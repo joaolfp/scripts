@@ -43,7 +43,8 @@ impl App {
 		self.selected = self.selected.saturating_sub(1);
 	}
 
-	pub fn render(&self, frame: &mut Frame) {		let area = frame.area();
+	pub fn render(&self, frame: &mut Frame) {
+		let area = frame.area();
 		let chunks = Layout::vertical([
 			Constraint::Length(3),
 			Constraint::Min(0),

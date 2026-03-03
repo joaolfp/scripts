@@ -57,9 +57,7 @@ pub fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>>
 
 pub fn prepare_rust_project(project_name: &str) -> Result<()> {
 	cmd!("cargo", "new", project_name).run()?;
-	let dest = env::current_dir()?
-		.join(project_name)
-		.join("rust_files.sh");
+	let dest = env::current_dir()?.join(project_name).join("rust_files.sh");
 	fs::write(&dest, include_str!("../rust_files.sh"))?;
 	Ok(())
 }
