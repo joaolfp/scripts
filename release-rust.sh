@@ -42,4 +42,8 @@ git tag -d "$tag"
 echo "🔨 Running cargo build..."
 cargo build
 
+git add .
+git commit -m "Prepare version to v${version}"
+git push
+
 echo "✅ All done with success"
