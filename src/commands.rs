@@ -50,6 +50,10 @@ pub fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>>
 			program: "brew".into(),
 			args: vec!["upgrade".into(), "mise".into()],
 		},
+		6 => CommandSpec {
+			program: "bash".into(),
+			args: vec!["release-rust.sh".into()],
+		},
 		_ => return Ok(None),
 	};
 	Ok(Some(spec))
