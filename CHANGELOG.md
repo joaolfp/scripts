@@ -1,18 +1,11 @@
 # Changelog
 
-## [0.2.0] - 2026-03-04
+## [0.2.1] - 2026-03-05
 
 ### Bug Fixes
 
-- Fmt
+- Cursor wasn't showing with scripts
 
-### Dependency Updates
-
-- Update jdx/mise-action digest to e79ddf6
-
-### Features
-
-- Add release rust script
-- Changing layout to ratatui
+## [0.2.0] - 2026-03-04
 
 
