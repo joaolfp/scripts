@@ -3,6 +3,7 @@ mod ui;
 
 use anyhow::Result;
 use crossterm::{
+	cursor::Show,
 	execute,
 	terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
@@ -22,6 +23,7 @@ fn main() -> Result<()> {
 
 	disable_raw_mode()?;
 	execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
+	execute!(terminal.backend_mut(), crossterm::cursor::Show)?;
 
 	if let Err(e) = result {
 		eprintln!("Error: {}", e);
@@ -39,6 +41,7 @@ fn run_app(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>) -> Result<()> 
 		if app.handle_input().is_ok() {
 			disable_raw_mode()?;
 			execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
+			execute!(terminal.backend_mut(), Show)?;
 
 			let input = get_user_input(app.selected)?;
 
