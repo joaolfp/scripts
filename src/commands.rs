@@ -50,10 +50,15 @@ pub fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>>
 			program: "brew".into(),
 			args: vec!["upgrade".into(), "mise".into()],
 		},
-		6 => CommandSpec {
-			program: "bash".into(),
-			args: vec!["release-rust.sh".into()],
-		},
+		6 => {
+			let dest = env::current_dir()?.join("release-rust.sh");
+			fs::write(&dest, include_str!("../release-rust.sh"))?;
+			let script = "chmod +x release-rust.sh && ./release-rust.sh";
+			CommandSpec {
+				program: "bash".into(),
+				args: vec!["-c".into(), script.into()],
+			}
+		}
 		_ => return Ok(None),
 	};
 	Ok(Some(spec))

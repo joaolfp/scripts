@@ -33,12 +33,6 @@ mv "$tmp" "$FILE"
 
 echo "✅ Updated [package] version to \"$version\" in $FILE"
 
-tag="v${version}"
-
-git tag "$tag"
-mise changelog
-git tag -d "$tag"
-
 echo "🔨 Running cargo build..."
 cargo build
 
