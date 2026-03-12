@@ -42,6 +42,7 @@ fn run_app(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>) -> Result<()> 
 			disable_raw_mode()?;
 			execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
 			execute!(terminal.backend_mut(), Show)?;
+			terminal.backend_mut().flush()?;
 
 			let input = get_user_input(app.selected)?;
 
