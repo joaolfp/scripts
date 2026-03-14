@@ -9,12 +9,12 @@ jobs:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
 
       - name: Mise install
-        uses: jdx/mise-action@9a9bfbd065d075c5eb56872e8913c7708d4ba741
+        uses: jdx/mise-action@c1ecc8f748cd28cdeabf76dab3cccde4ce692fe4
         with:
           cache: true
           experimental: true
 
-      - uses: Swatinem/rust-cache@8a02ed5e290d8afc7e587930243f3016b3223f50
+      - uses: Swatinem/rust-cache@d7ac6f694df60fb8ce48bab7b59ad5da1ac8d46e
 
       - name: Run build
         run: mise build
