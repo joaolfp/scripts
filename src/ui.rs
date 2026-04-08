@@ -1,5 +1,5 @@
 use anyhow::Result;
-use dialoguer::{Select, Input, theme::ColorfulTheme};
+use dialoguer::{Input, Select, theme::ColorfulTheme};
 
 const MENU_ITEMS: &[&str] = &[
 	"Clone HeroesOfCode's repositories",
@@ -36,6 +36,6 @@ pub fn get_user_input(selected: usize) -> Result<String> {
 	let input = Input::with_theme(&ColorfulTheme::default())
 		.with_prompt(prompt)
 		.interact_text()?;
-	
-    Ok(input)
+
+	Ok(input)
 }

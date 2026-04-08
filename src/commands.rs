@@ -10,12 +10,21 @@ pub struct CommandSpec {
 
 pub fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>> {
 	let spec = match selected {
-		0 => CommandSpec { program: "hoc".into(), args: vec!["clone".into()] },
-		1 => CommandSpec { program: "releasor".into(), args: vec!["-f".into(), input.to_string()] },
+		0 => CommandSpec {
+			program: "hoc".into(),
+			args: vec!["clone".into()],
+		},
+		1 => CommandSpec {
+			program: "releasor".into(),
+			args: vec!["-f".into(), input.to_string()],
+		},
 		2 => rust_files_spec(input),
 		3 => return Ok(None),
 		4 => xcodes_spec(input),
-		5 => CommandSpec { program: "brew".into(), args: vec!["upgrade".into(), "mise".into()] },
+		5 => CommandSpec {
+			program: "brew".into(),
+			args: vec!["upgrade".into(), "mise".into()],
+		},
 		_ => return Ok(None),
 	};
 
@@ -27,7 +36,10 @@ fn rust_files_spec(project: &str) -> CommandSpec {
 		"cd {project} && chmod +x rust_files.sh && ./rust_files.sh && rm rust_files.sh && rm -rf .git"
 	);
 
-	CommandSpec { program: "bash".into(), args: vec!["-c".into(), script] }
+	CommandSpec {
+		program: "bash".into(),
+		args: vec!["-c".into(), script],
+	}
 }
 
 fn xcodes_spec(version: &str) -> CommandSpec {
@@ -39,7 +51,10 @@ fn xcodes_spec(version: &str) -> CommandSpec {
 	if has_xcodes {
 		CommandSpec {
 			program: "bash".into(),
-			args: vec!["-c".into(), format!("xcodes update && xcodes install {version}")],
+			args: vec![
+				"-c".into(),
+				format!("xcodes update && xcodes install {version}"),
+			],
 		}
 	} else {
 		CommandSpec {
@@ -53,14 +68,14 @@ pub fn prepare_rust_project(project_name: &str) -> Result<()> {
 	cmd!("cargo", "new", project_name).run()?;
 	let dest = env::current_dir()?.join(project_name).join("rust_files.sh");
 	fs::write(&dest, include_str!("../rust_files.sh"))?;
-	
-    Ok(())
+
+	Ok(())
 }
 
 pub fn run_clone_my_repositories(repo: &str) -> Result<String> {
 	use xx::git::CloneOptions;
-	
-    let opts = CloneOptions::default().branch("main");
+
+	let opts = CloneOptions::default().branch("main");
 	xx::git::clone(
 		&format!("https://github.com/joaolfp/{repo}"),
 		&format!("{repo}/"),
