@@ -36,7 +36,7 @@ impl App {
 	}
 
 	fn next(&mut self) {
-		self.selected = (self.selected + 1).min(6);
+		self.selected = (self.selected + 1).min(5);
 	}
 
 	fn previous(&mut self) {
@@ -76,7 +76,6 @@ impl App {
 			"Clone my repositories",
 			"Install Xcode",
 			"Upgrade mise",
-			"Release Rust",
 		];
 
 		let list_items: Vec<ListItem> = items
