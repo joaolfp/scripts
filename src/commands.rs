@@ -3,12 +3,29 @@ use duct::cmd;
 use std::process::Command;
 use std::{env, fs};
 
-pub struct CommandSpec {
-	pub program: String,
-	pub args: Vec<String>,
+struct CommandSpec {
+	program: String,
+	args: Vec<String>,
 }
 
-pub fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>> {
+pub fn dispatch(selected: usize, input: &str) -> Result<()> {
+	if selected == 3 {
+		run_clone_my_repositories(input)?;
+		return Ok(());
+	}
+
+	if selected == 2 {
+		prepare_rust_project(input)?;
+	}
+
+	if let Some(spec) = command_spec(selected, input)? {
+		run_in_terminal(&spec)?;
+	}
+
+	Ok(())
+}
+
+fn command_spec(selected: usize, input: &str) -> Result<Option<CommandSpec>> {
 	let spec = match selected {
 		0 => CommandSpec {
 			program: "hoc".into(),
@@ -64,7 +81,7 @@ fn xcodes_spec(version: &str) -> CommandSpec {
 	}
 }
 
-pub fn prepare_rust_project(project_name: &str) -> Result<()> {
+fn prepare_rust_project(project_name: &str) -> Result<()> {
 	cmd!("cargo", "new", project_name).run()?;
 	let dest = env::current_dir()?.join(project_name).join("rust_files.sh");
 	fs::write(&dest, include_str!("../rust_files.sh"))?;
@@ -72,7 +89,7 @@ pub fn prepare_rust_project(project_name: &str) -> Result<()> {
 	Ok(())
 }
 
-pub fn run_clone_my_repositories(repo: &str) -> Result<String> {
+fn run_clone_my_repositories(repo: &str) -> Result<String> {
 	use xx::git::CloneOptions;
 
 	let opts = CloneOptions::default().branch("main");
@@ -85,24 +102,7 @@ pub fn run_clone_my_repositories(repo: &str) -> Result<String> {
 	Ok(format!("Cloned: {}", repo))
 }
 
-pub fn dispatch(selected: usize, input: &str) -> Result<()> {
-	if selected == 3 {
-		run_clone_my_repositories(input)?;
-		return Ok(());
-	}
-
-	if selected == 2 {
-		prepare_rust_project(input)?;
-	}
-
-	if let Some(spec) = command_spec(selected, input)? {
-		run_in_terminal(&spec)?;
-	}
-
-	Ok(())
-}
-
-pub fn run_in_terminal(spec: &CommandSpec) -> Result<std::process::ExitStatus> {
+fn run_in_terminal(spec: &CommandSpec) -> Result<std::process::ExitStatus> {
 	Command::new(&spec.program)
 		.args(&spec.args)
 		.stdin(std::process::Stdio::inherit())
