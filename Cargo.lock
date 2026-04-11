@@ -934,9 +934,9 @@ dependencies = [
 
 [[package]]
 name = "xx"
-version = "2.5.3"
+version = "2.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61cdbadb4cf2151c38b7c07c1383284bcf63b51baac062c83bd8286962b41dd9"
+checksum = "d61141ccbc979c1421bc450f1a800196abc073e0deccb0adcb100c96238b33e2"
 dependencies = [
  "duct",
  "filetime",
