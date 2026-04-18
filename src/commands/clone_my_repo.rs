@@ -16,8 +16,8 @@ impl AppCommand for CloneMyRepo {
 		use xx::git::CloneOptions;
 
 		let opts = CloneOptions::default().branch("main");
-		
-        xx::git::clone(
+
+		xx::git::clone(
 			&format!("https://github.com/joaolfp/{repo}"),
 			format!("{repo}/"),
 			&opts,
