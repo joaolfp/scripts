@@ -22,12 +22,23 @@ To run a single test: `cargo test <test_name>`
 
 ## Architecture
 
-This is a terminal UI (TUI) tool built with [ratatui](https://github.com/ratatui-org/ratatui) and crossterm. It presents a menu of developer scripts and runs the selected command.
+This is a CLI tool that presents an interactive menu of developer scripts using [dialoguer](https://github.com/console-rs/dialoguer). The selected command is then executed.
 
 **Flow:**
-1. `main.rs` — initializes crossterm raw mode + alternate screen, creates the ratatui `Terminal`, runs the event loop via `run_app`, then cleans up terminal state on exit.
-2. `ui.rs` — `App` struct holds selection state and `should_quit`. `render()` draws header/menu/footer. `handle_input()` returns `Ok(())` on Enter (selection confirmed) or sets `should_quit` on `q`/`Esc`.
-3. `commands.rs` — maps the selected menu index (0–6) to a `CommandSpec` (program + args) or runs special logic directly. After the TUI exits, `main.rs` calls `get_user_input()` for items that need text input, then dispatches to the appropriate command function.
+1. `main.rs` — calls `commands::registry::all()` to get the command list, delegates to `app::show_menu()` for selection, `app::get_user_input()` for any required text input, then calls `execute()` on the selected command.
+2. `app.rs` — `show_menu()` renders a `dialoguer::Select` prompt. `get_user_input()` renders a `dialoguer::Input` prompt if the command has an `input_prompt`.
+3. `commands/mod.rs` — defines the `AppCommand` trait (`label`, `input_prompt`, `execute`) and the shared `run_in_terminal` helper.
+4. `commands/registry.rs` — `all()` returns the ordered list of boxed commands.
+5. `lib.rs` — exposes `pub mod commands` for use in integration tests.
+
+**`AppCommand` trait:**
+```rust
+pub trait AppCommand {
+    fn label(&self) -> &str;
+    fn input_prompt(&self) -> Option<&str> { None }
+    fn execute(&self, input: &str) -> Result<()>;
+}
+```
 
 **Menu items and their indices:**
 | Index | Label | Command/Logic |
@@ -38,9 +49,12 @@ This is a terminal UI (TUI) tool built with [ratatui](https://github.com/ratatui
 | 3 | Clone my repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
 | 4 | Install Xcode | `xcodes install <version>` (or installs xcodes via brew) |
 | 5 | Upgrade mise | `brew upgrade mise` |
-| 6 | Release Rust | runs embedded `release-rust.sh` script |
 
 `rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
+
+## Testing
+
+Integration tests live in `tests/commands.rs` and import via the `scripts` crate (`lib.rs`). They verify the registry length, label order, and which commands require an input prompt.
 
 ## Code Style
 

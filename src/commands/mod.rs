@@ -1,10 +1,10 @@
-mod clone_my_repo;
-mod hoc_clone;
-mod install_xcode;
+pub(crate) mod clone_my_repo;
+pub(crate) mod hoc_clone;
+pub(crate) mod install_xcode;
 pub mod registry;
-mod releasor;
-mod rust_project;
-mod upgrade_mise;
+pub(crate) mod releasor;
+pub(crate) mod rust_project;
+pub(crate) mod upgrade_mise;
 
 use anyhow::Result;
 
