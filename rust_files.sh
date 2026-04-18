@@ -169,6 +169,11 @@ jobs:
         run: mise test
 '
 
+RUST_TOOLCHAIN_TOML_CONTENT='[toolchain]
+channel = "1.95.0"
+components = ["clippy", "rustfmt"]
+'
+
 RENOVATE_JSON_CONTENT='{
   "extends": ["config:recommended"],
   "packageRules": [
@@ -195,6 +200,7 @@ RENOVATE_JSON_CONTENT='{
 }
 '
 
+write_file "rust-toolchain.toml" "$RUST_TOOLCHAIN_TOML_CONTENT"
 write_file "mise.toml" "$MISE_TOML_CONTENT"
 write_file "CHANGELOG.md" "$CHANGELOG_MD_CONTENT"
 write_file "cliff.toml" "$CLIFF_TOML_CONTENT"
