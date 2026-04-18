@@ -4,7 +4,8 @@ mod ui;
 use anyhow::Result;
 
 fn main() -> Result<()> {
-	let selected = ui::show_menu()?;
-	let input = ui::get_user_input(selected)?;
-	commands::dispatch(selected, &input)
+	let commands = commands::registry::all();
+	let selected = ui::show_menu(&commands)?;
+	let input = ui::get_user_input(&*commands[selected])?;
+	commands[selected].execute(&input)
 }
