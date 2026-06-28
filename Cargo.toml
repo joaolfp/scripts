@@ -5,6 +5,6 @@ edition = "2024"
 
 [dependencies]
 anyhow = "1.0.100"
-dialoguer = "0.12"
+dialoguer = { git = "https://github.com/joaolfp/dialoguer", branch = "hotfix/hide-cursor" }
 duct = "1.1.1"
 xx = "2.5.1"
