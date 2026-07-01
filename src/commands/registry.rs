@@ -1,6 +1,7 @@
 use super::{
 	AppCommand, clone_my_repo::CloneMyRepo, hoc_clone::HocClone, install_xcode::InstallXcode,
-	releasor::Releasor, rust_project::CreateRustProject, upgrade_mise::UpgradeMise,
+	releasor::Releasor, rust_project::CreateRustProject, update_rust::UpdateRust,
+	upgrade_mise::UpgradeMise,
 };
 
 pub fn all() -> Vec<Box<dyn AppCommand>> {
@@ -11,5 +12,6 @@ pub fn all() -> Vec<Box<dyn AppCommand>> {
 		Box::new(CloneMyRepo),
 		Box::new(InstallXcode),
 		Box::new(UpgradeMise),
+		Box::new(UpdateRust),
 	]
 }

@@ -1,8 +1,8 @@
 use scripts::commands::registry;
 
 #[test]
-fn registry_returns_six_commands() {
-	assert_eq!(registry::all().len(), 6);
+fn registry_returns_seven_commands() {
+	assert_eq!(registry::all().len(), 7);
 }
 
 #[test]
@@ -19,6 +19,7 @@ fn registry_labels_in_order() {
 			"Clone my repositories",
 			"Install Xcode",
 			"Upgrade mise",
+			"Update Rust",
 		]
 	);
 }
@@ -27,7 +28,7 @@ fn registry_labels_in_order() {
 fn commands_without_input_prompt() {
 	let commands = registry::all();
 
-	let no_prompt = ["Clone HeroesOfCode's repositories", "Upgrade mise"];
+	let no_prompt = ["Clone HeroesOfCode's repositories", "Upgrade mise", "Update Rust"];
 
 	for cmd in &commands {
 		if no_prompt.contains(&cmd.label()) {

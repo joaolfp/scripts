@@ -4,6 +4,7 @@ pub(crate) mod install_xcode;
 pub mod registry;
 pub(crate) mod releasor;
 pub(crate) mod rust_project;
+pub(crate) mod update_rust;
 pub(crate) mod upgrade_mise;
 
 use anyhow::Result;
