@@ -28,7 +28,11 @@ fn registry_labels_in_order() {
 fn commands_without_input_prompt() {
 	let commands = registry::all();
 
-	let no_prompt = ["Clone HeroesOfCode's repositories", "Upgrade mise", "Update Rust"];
+	let no_prompt = [
+		"Clone HeroesOfCode's repositories",
+		"Upgrade mise",
+		"Update Rust",
+	];
 
 	for cmd in &commands {
 		if no_prompt.contains(&cmd.label()) {
