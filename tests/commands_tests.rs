@@ -1,8 +1,8 @@
 use scripts::commands::registry;
 
 #[test]
-fn registry_returns_seven_commands() {
-	assert_eq!(registry::all().len(), 7);
+fn registry_returns_eight_commands() {
+	assert_eq!(registry::all().len(), 8);
 }
 
 #[test]
@@ -15,6 +15,7 @@ fn registry_labels_in_order() {
 		[
 			"Clone HeroesOfCode's repositories",
 			"Releasor",
+			"Install Releasor",
 			"Create rust project",
 			"Clone my repositories",
 			"Install Xcode",
@@ -30,6 +31,7 @@ fn commands_without_input_prompt() {
 
 	let no_prompt = [
 		"Clone HeroesOfCode's repositories",
+		"Install Releasor",
 		"Upgrade mise",
 		"Update Rust",
 	];
