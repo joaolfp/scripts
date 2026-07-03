@@ -45,16 +45,18 @@ pub trait AppCommand {
 |-------|-------|---------------|
 | 0 | Clone HeroesOfCode's repositories | `hoc clone` |
 | 1 | Releasor | `releasor -f <package>` |
-| 2 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
-| 3 | Clone my repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
-| 4 | Install Xcode | `xcodes install <version>` (or installs xcodes via brew) |
-| 5 | Upgrade mise | `brew upgrade mise` |
+| 2 | Install Releasor | `cargo install releasor` |
+| 3 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
+| 4 | Clone my repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
+| 5 | Install Xcode | `xcodes install <version>` (or installs xcodes via brew) |
+| 6 | Update mise | `brew upgrade mise` |
+| 7 | Update Rust | `rustup update` |
 
 `rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
 
 ## Testing
 
-Integration tests live in `tests/commands.rs` and import via the `scripts` crate (`lib.rs`). They verify the registry length, label order, and which commands require an input prompt.
+Integration tests live in `tests/commands_tests.rs` and import via the `scripts` crate (`lib.rs`). They verify the registry length, label order, and which commands require an input prompt.
 
 ## Code Style
 
