@@ -19,7 +19,7 @@ fn registry_labels_in_order() {
 			"Create rust project",
 			"Clone my repositories",
 			"Install Xcode",
-			"Upgrade mise",
+			"Update mise",
 			"Update Rust",
 		]
 	);
@@ -32,7 +32,7 @@ fn commands_without_input_prompt() {
 	let no_prompt = [
 		"Clone HeroesOfCode's repositories",
 		"Install Releasor",
-		"Upgrade mise",
+		"Update mise",
 		"Update Rust",
 	];
 
