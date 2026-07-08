@@ -1,8 +1,8 @@
 use scripts::commands::registry;
 
 #[test]
-fn registry_returns_eight_commands() {
-	assert_eq!(registry::all().len(), 8);
+fn registry_returns_nine_commands() {
+	assert_eq!(registry::all().len(), 9);
 }
 
 #[test]
@@ -21,6 +21,7 @@ fn registry_labels_in_order() {
 			"Install Xcode",
 			"Update mise",
 			"Update Rust",
+			"Update Claude",
 		]
 	);
 }
@@ -34,6 +35,7 @@ fn commands_without_input_prompt() {
 		"Install Releasor",
 		"Update mise",
 		"Update Rust",
+		"Update Claude",
 	];
 
 	for cmd in &commands {

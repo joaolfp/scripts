@@ -51,6 +51,7 @@ pub trait AppCommand {
 | 5 | Install Xcode | `xcodes install <version>` (or installs xcodes via brew) |
 | 6 | Update mise | `brew upgrade mise` |
 | 7 | Update Rust | `rustup update` |
+| 8 | Update Claude | `claude update` |
 
 `rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
 
