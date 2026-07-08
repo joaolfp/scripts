@@ -5,7 +5,7 @@ pub struct CloneMyRepo;
 
 impl AppCommand for CloneMyRepo {
 	fn label(&self) -> &str {
-		"Clone my repositories"
+		"Clone: My repositories"
 	}
 
 	fn input_prompt(&self) -> Option<&str> {

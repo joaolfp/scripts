@@ -13,16 +13,16 @@ fn registry_labels_in_order() {
 	assert_eq!(
 		labels,
 		[
-			"Clone HeroesOfCode's repositories",
+			"Clone: HeroesOfCode's repositories",
+			"Clone: My repositories",
+			"Install: Releasor",
+			"Install: Xcode",
+			"Install: Claude",
+			"Update: mise",
+			"Update: Rust",
+			"Update: Claude",
 			"Releasor",
-			"Install Releasor",
 			"Create rust project",
-			"Clone my repositories",
-			"Install Xcode",
-			"Update mise",
-			"Update Rust",
-			"Install Claude",
-			"Update Claude",
 		]
 	);
 }
@@ -32,12 +32,12 @@ fn commands_without_input_prompt() {
 	let commands = registry::all();
 
 	let no_prompt = [
-		"Clone HeroesOfCode's repositories",
-		"Install Releasor",
-		"Update mise",
-		"Update Rust",
-		"Install Claude",
-		"Update Claude",
+		"Clone: HeroesOfCode's repositories",
+		"Install: Releasor",
+		"Update: mise",
+		"Update: Rust",
+		"Install: Claude",
+		"Update: Claude",
 	];
 
 	for cmd in &commands {
@@ -58,8 +58,8 @@ fn commands_with_input_prompt() {
 	let expected = [
 		("Releasor", "Package name"),
 		("Create rust project", "Project name"),
-		("Clone my repositories", "Repository"),
-		("Install Xcode", "Xcode version"),
+		("Clone: My repositories", "Repository"),
+		("Install: Xcode", "Xcode version"),
 	];
 
 	for (label, prompt) in expected {

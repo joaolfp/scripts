@@ -5,7 +5,7 @@ pub struct UpdateClaude;
 
 impl AppCommand for UpdateClaude {
 	fn label(&self) -> &str {
-		"Update Claude"
+		"Update: Claude"
 	}
 
 	fn execute(&self, _input: &str) -> Result<()> {

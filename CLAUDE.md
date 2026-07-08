@@ -41,18 +41,21 @@ pub trait AppCommand {
 ```
 
 **Menu items and their indices:**
+
+Labels are grouped by category prefix (`Clone:`, `Install:`, `Update:`) so related actions sit together in the `Select` list; standalone commands are unprefixed and listed last.
+
 | Index | Label | Command/Logic |
 |-------|-------|---------------|
-| 0 | Clone HeroesOfCode's repositories | `hoc clone` |
-| 1 | Releasor | `releasor -f <package>` |
-| 2 | Install Releasor | `cargo install releasor` |
-| 3 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
-| 4 | Clone my repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
-| 5 | Install Xcode | `xcodes install <version>` (or installs xcodes via brew) |
-| 6 | Update mise | `brew upgrade mise` |
-| 7 | Update Rust | `rustup update` |
-| 8 | Install Claude | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| 9 | Update Claude | `claude update` |
+| 0 | Clone: HeroesOfCode's repositories | `hoc clone` |
+| 1 | Clone: My repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
+| 2 | Install: Releasor | `cargo install releasor` |
+| 3 | Install: Xcode | `xcodes install <version>` (or installs xcodes via brew) |
+| 4 | Install: Claude | `curl -fsSL https://claude.ai/install.sh \| bash` |
+| 5 | Update: mise | `brew upgrade mise` |
+| 6 | Update: Rust | `rustup update` |
+| 7 | Update: Claude | `claude update` |
+| 8 | Releasor | `releasor -f <package>` |
+| 9 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
 
 `rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
 

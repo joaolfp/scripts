@@ -5,7 +5,7 @@ pub struct UpdateRust;
 
 impl AppCommand for UpdateRust {
 	fn label(&self) -> &str {
-		"Update Rust"
+		"Update: Rust"
 	}
 
 	fn execute(&self, _input: &str) -> Result<()> {

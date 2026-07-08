@@ -6,7 +6,7 @@ pub struct InstallXcode;
 
 impl AppCommand for InstallXcode {
 	fn label(&self) -> &str {
-		"Install Xcode"
+		"Install: Xcode"
 	}
 
 	fn input_prompt(&self) -> Option<&str> {

@@ -5,7 +5,7 @@ pub struct UpgradeMise;
 
 impl AppCommand for UpgradeMise {
 	fn label(&self) -> &str {
-		"Update mise"
+		"Update: mise"
 	}
 
 	fn execute(&self, _input: &str) -> Result<()> {

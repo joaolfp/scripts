@@ -8,14 +8,14 @@ use super::{
 pub fn all() -> Vec<Box<dyn AppCommand>> {
 	vec![
 		Box::new(HocClone),
-		Box::new(Releasor),
-		Box::new(InstallReleasor),
-		Box::new(CreateRustProject),
 		Box::new(CloneMyRepo),
+		Box::new(InstallReleasor),
 		Box::new(InstallXcode),
+		Box::new(InstallClaude),
 		Box::new(UpgradeMise),
 		Box::new(UpdateRust),
-		Box::new(InstallClaude),
 		Box::new(UpdateClaude),
+		Box::new(Releasor),
+		Box::new(CreateRustProject),
 	]
 }

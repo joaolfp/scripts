@@ -5,7 +5,7 @@ pub struct HocClone;
 
 impl AppCommand for HocClone {
 	fn label(&self) -> &str {
-		"Clone HeroesOfCode's repositories"
+		"Clone: HeroesOfCode's repositories"
 	}
 
 	fn execute(&self, _input: &str) -> Result<()> {
