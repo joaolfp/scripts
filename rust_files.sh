@@ -170,7 +170,7 @@ jobs:
 '
 
 RUST_TOOLCHAIN_TOML_CONTENT='[toolchain]
-channel = "1.96.0"
+channel = "1.97.0"
 components = ["clippy", "rustfmt"]
 '
 
