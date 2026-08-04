@@ -1,6 +1,6 @@
 use crate::commands::AppCommand;
 use anyhow::Result;
-use dialoguer::{Input, Select, theme::ColorfulTheme};
+use dialoguer::{Input, Select, theme::DraculaTheme};
 
 enum TopEntry {
 	Direct(usize),
@@ -39,7 +39,7 @@ fn build_top_entries(commands: &[Box<dyn AppCommand>]) -> Vec<TopEntry> {
 }
 
 fn select_from(prompt: &str, labels: &[&str]) -> Result<usize> {
-	Select::with_theme(&ColorfulTheme::default())
+	Select::with_theme(&DraculaTheme::default())
 		.with_prompt(prompt)
 		.items(labels)
 		.default(0)
@@ -74,7 +74,7 @@ pub fn get_user_input(command: &dyn AppCommand) -> Result<String> {
 		return Ok(String::new());
 	};
 
-	let input = Input::with_theme(&ColorfulTheme::default())
+	let input = Input::with_theme(&DraculaTheme::default())
 		.with_prompt(prompt)
 		.interact_text()?;
 
