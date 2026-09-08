@@ -1,4 +1,5 @@
 pub(crate) mod clone_my_repo;
+pub(crate) mod exit;
 pub(crate) mod hoc_clone;
 pub(crate) mod install_claude;
 pub(crate) mod install_releasor;

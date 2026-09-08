@@ -1,8 +1,8 @@
 use scripts::commands::registry;
 
 #[test]
-fn registry_returns_ten_commands() {
-	assert_eq!(registry::all().len(), 10);
+fn registry_returns_eleven_commands() {
+	assert_eq!(registry::all().len(), 11);
 }
 
 #[test]
@@ -23,6 +23,7 @@ fn registry_labels_in_order() {
 			"Update: Claude",
 			"Releasor",
 			"Create rust project",
+			"Exit",
 		]
 	);
 }
@@ -38,6 +39,7 @@ fn commands_without_input_prompt() {
 		"Update: Rust",
 		"Install: Claude",
 		"Update: Claude",
+		"Exit",
 	];
 
 	for cmd in &commands {

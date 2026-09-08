@@ -56,6 +56,7 @@ Labels are grouped by category prefix (`Clone:`, `Install:`, `Update:`) so relat
 | 7 | Update: Claude | `claude update` |
 | 8 | Releasor | `releasor -f <package>` |
 | 9 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
+| 10 | Exit | prints `Bye bye 👋`, then `std::process::exit(0)` — quits the app |
 
 `rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
 
