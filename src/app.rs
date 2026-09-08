@@ -1,6 +1,35 @@
-use crate::commands::AppCommand;
+use crate::commands::{AppCommand, registry};
 use anyhow::Result;
 use dialoguer::{Input, Select, theme::DraculaTheme};
+
+pub fn run() -> Result<()> {
+	let commands = registry::all();
+
+	loop {
+		let selected = match interruptible(show_menu(&commands))? {
+			Some(selected) => selected,
+			None => return Ok(()),
+		};
+
+		let input = match interruptible(get_user_input(&*commands[selected]))? {
+			Some(input) => input,
+			None => return Ok(()),
+		};
+
+		if let Err(e) = commands[selected].execute(&input) {
+			eprintln!("Error: {e:?}");
+		}
+	}
+}
+
+/// Maps a Ctrl-C interruption to `Ok(None)` so the caller can exit cleanly, while any other error is propagated.
+fn interruptible<T>(result: Result<T>) -> Result<Option<T>> {
+	match result {
+		Ok(value) => Ok(Some(value)),
+		Err(e) if e.to_string().contains("interrupted") => Ok(None),
+		Err(e) => Err(e),
+	}
+}
 
 enum TopEntry {
 	Direct(usize),
