@@ -34,6 +34,7 @@ fn commands_without_input_prompt() {
 
 	let no_prompt = [
 		"Clone: HeroesOfCode's repositories",
+		"Clone: My repositories",
 		"Install: Releasor",
 		"Update: mise",
 		"Update: Rust",
@@ -60,7 +61,6 @@ fn commands_with_input_prompt() {
 	let expected = [
 		("Releasor", "Package name"),
 		("Create rust project", "Project name"),
-		("Clone: My repositories", "Repository"),
 		("Install: Xcode", "Xcode version"),
 	];
 

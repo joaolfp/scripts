@@ -1,4 +1,4 @@
-use super::AppCommand;
+use super::{AppCommand, run_in_terminal};
 use anyhow::Result;
 
 pub struct CloneMyRepo;
@@ -8,21 +8,7 @@ impl AppCommand for CloneMyRepo {
 		"Clone: My repositories"
 	}
 
-	fn input_prompt(&self) -> Option<&str> {
-		Some("Repository")
-	}
-
-	fn execute(&self, repo: &str) -> Result<()> {
-		use xx::git::CloneOptions;
-
-		let opts = CloneOptions::default().branch("main");
-
-		xx::git::clone(
-			&format!("https://github.com/joaolfp/{repo}"),
-			format!("{repo}/"),
-			&opts,
-		)?;
-
-		Ok(())
+	fn execute(&self, _input: &str) -> Result<()> {
+		run_in_terminal("hoc", &["m"])
 	}
 }

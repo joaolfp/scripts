@@ -47,7 +47,7 @@ Labels are grouped by category prefix (`Clone:`, `Install:`, `Update:`) so relat
 | Index | Label | Command/Logic |
 |-------|-------|---------------|
 | 0 | Clone: HeroesOfCode's repositories | `hoc clone` |
-| 1 | Clone: My repositories | `xx::git::clone` from `github.com/joaolfp/<repo>` |
+| 1 | Clone: My repositories | `hoc m` |
 | 2 | Install: Releasor | `cargo install releasor` |
 | 3 | Install: Xcode | `xcodes install <version>` (or installs xcodes via brew) |
 | 4 | Install: Claude | `curl -fsSL https://claude.ai/install.sh \| bash` |
