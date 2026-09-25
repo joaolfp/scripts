@@ -20,6 +20,8 @@ mise changelog   # git cliff -o CHANGELOG.md
 
 To run a single test: `cargo test <test_name>`
 
+To add a new menu command from a plain-language description, use the `/add-command` slash command (`.claude/commands/add-command.md`).
+
 ## Architecture
 
 This is a CLI tool that presents an interactive menu of developer scripts using [dialoguer](https://github.com/console-rs/dialoguer). The selected command is then executed.
