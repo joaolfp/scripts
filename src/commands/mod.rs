@@ -4,7 +4,6 @@ pub(crate) mod hoc_clone;
 pub(crate) mod install_claude;
 pub(crate) mod install_kiro;
 pub(crate) mod install_releasor;
-pub(crate) mod install_xcode;
 pub mod registry;
 pub(crate) mod releasor;
 pub(crate) mod rust_project;

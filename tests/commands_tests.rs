@@ -1,8 +1,8 @@
 use scripts::commands::registry;
 
 #[test]
-fn registry_returns_twelve_commands() {
-	assert_eq!(registry::all().len(), 12);
+fn registry_returns_eleven_commands() {
+	assert_eq!(registry::all().len(), 11);
 }
 
 #[test]
@@ -16,7 +16,6 @@ fn registry_labels_in_order() {
 			"Clone: HeroesOfCode's repositories",
 			"Clone: My repositories",
 			"Install: Releasor",
-			"Install: Xcode",
 			"Install: Claude",
 			"Install: Kiro",
 			"Update: mise",
@@ -63,7 +62,6 @@ fn commands_with_input_prompt() {
 	let expected = [
 		("Releasor", "Package name"),
 		("Create rust project", "Project name"),
-		("Install: Xcode", "Xcode version"),
 	];
 
 	for (label, prompt) in expected {
