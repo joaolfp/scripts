@@ -1,5 +1,4 @@
 mod app;
-mod commands;
 
 use anyhow::Result;
 

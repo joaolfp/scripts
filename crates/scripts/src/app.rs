@@ -1,9 +1,9 @@
-use crate::commands::{AppCommand, registry};
 use anyhow::Result;
 use dialoguer::{Input, Select, theme::DraculaTheme};
+use scripts_core::AppCommand;
 
 pub fn run() -> Result<()> {
-	let commands = registry::all();
+	let commands = scripts_commands::all();
 
 	loop {
 		let selected = match interruptible(show_menu(&commands))? {

@@ -1,5 +1,5 @@
-use super::{AppCommand, run_in_terminal};
 use anyhow::Result;
+use scripts_core::{AppCommand, run_in_terminal};
 
 pub struct UpdateRust;
 

@@ -1,13 +1,11 @@
-use scripts::commands::registry;
-
 #[test]
 fn registry_returns_eleven_commands() {
-	assert_eq!(registry::all().len(), 11);
+	assert_eq!(scripts_commands::all().len(), 11);
 }
 
 #[test]
 fn registry_labels_in_order() {
-	let commands = registry::all();
+	let commands = scripts_commands::all();
 	let labels: Vec<&str> = commands.iter().map(|c| c.label()).collect();
 
 	assert_eq!(
@@ -30,7 +28,7 @@ fn registry_labels_in_order() {
 
 #[test]
 fn commands_without_input_prompt() {
-	let commands = registry::all();
+	let commands = scripts_commands::all();
 
 	let no_prompt = [
 		"Clone: HeroesOfCode's repositories",
@@ -57,7 +55,7 @@ fn commands_without_input_prompt() {
 
 #[test]
 fn commands_with_input_prompt() {
-	let commands = registry::all();
+	let commands = scripts_commands::all();
 
 	let expected = [
 		("Releasor", "Package name"),

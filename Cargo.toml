@@ -1,10 +1,14 @@
-[package]
-name = "scripts"
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
 version = "0.10.0"
 edition = "2024"
 
-[dependencies]
+[workspace.dependencies]
 anyhow = "1.0.100"
 dialoguer = { git = "https://github.com/joaolfp/dialoguer", branch = "hotfix/hide-cursor" }
 duct = "1.1.1"
-xx = "2.5.1"
+scripts-commands = { path = "crates/scripts-commands" }
+scripts-core = { path = "crates/scripts-core" }

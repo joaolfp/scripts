@@ -10,9 +10,9 @@ Request from the user (may be empty): $ARGUMENTS
 
 ## Context
 
-- Existing command files: !`ls src/commands`
-- Registry: !`cat src/commands/registry.rs`
-- Tests: !`cat tests/commands_tests.rs`
+- Existing command files: !`ls crates/scripts-commands/src`
+- Registry: !`cat crates/scripts-commands/src/lib.rs`
+- Tests: !`cat crates/scripts-commands/tests/commands_tests.rs`
 - Current version: !`grep '^version' Cargo.toml`
 - Working tree: !`git status --short`
 
@@ -49,12 +49,12 @@ Use the tool's usual capitalization (`mise`, `Rust`, `Homebrew`, `Node`). If a c
 ## Step 3 — Write the code
 
 Match the existing files exactly (hard tabs, same imports, same shape). Name the file/struct after the label:
-`Update: Homebrew` → `src/commands/update_homebrew.rs`, `struct UpdateHomebrew`.
+`Update: Homebrew` → `crates/scripts-commands/src/update_homebrew.rs`, `struct UpdateHomebrew`.
 
 Without input:
 
 ```rust
-use super::{AppCommand, run_in_terminal};
+use scripts_core::{AppCommand, run_in_terminal};
 use anyhow::Result;
 
 pub struct UpdateHomebrew;
@@ -84,17 +84,16 @@ With input:
 
 Then:
 
-1. **`src/commands/mod.rs`** — add `pub(crate) mod <file>;` keeping the list alphabetical.
-2. **`src/commands/registry.rs`** — import the struct (keep the `use super::{…}` block sorted as rustfmt would) and insert `Box::new(<Struct>)` in the right group:
+1. **`crates/scripts-commands/src/lib.rs`** — add `mod <file>;` keeping the module list alphabetical, import the struct (keep the `use crate::{…}` block sorted as rustfmt would) and insert `Box::new(<Struct>)` in `all()` in the right group:
    - `Clone:` items → after the last `Clone:` item
    - `Install:` items → after the last `Install:` item
    - `Update:` items → after the last `Update:` item
    - Other → after the last unprefixed item, **always before `Exit`** (Exit must stay last).
-3. **`tests/commands_tests.rs`**:
+2. **`crates/scripts-commands/tests/commands_tests.rs`**:
    - Bump the count in `registry_returns_*_commands` (rename the test to the new number in words, e.g. `registry_returns_twelve_commands`).
    - Insert the label at the same position in `registry_labels_in_order`.
    - Add the label to `commands_without_input_prompt`, **or** add `(label, prompt)` to `commands_with_input_prompt`.
-4. **`CLAUDE.md`** — insert a row in the "Menu items and their indices" table at the correct position and renumber the indices below it.
+3. **`CLAUDE.md`** — insert a row in the "Menu items and their indices" table at the correct position and renumber the indices below it.
 
 ## Step 4 — Verify
 

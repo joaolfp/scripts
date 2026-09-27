@@ -26,12 +26,21 @@ To add a new menu command from a plain-language description, use the `/add-comma
 
 This is a CLI tool that presents an interactive menu of developer scripts using [dialoguer](https://github.com/console-rs/dialoguer). The selected command is then executed.
 
+The project is a Cargo workspace (root `Cargo.toml` holds `[workspace.package]` version/edition and shared `[workspace.dependencies]`) with three crates under `crates/`:
+
+| Crate | Kind | Contents |
+|-------|------|----------|
+| `scripts-core` | lib | `AppCommand` trait and the shared `run_in_terminal` helper |
+| `scripts-commands` | lib | One file per command, plus `all()` in `lib.rs` returning the ordered list of boxed commands |
+| `scripts` | bin | `main.rs` + `app.rs` — the interactive menu |
+
+Dependency direction: `scripts` → `scripts-commands` → `scripts-core`.
+
 **Flow:**
-1. `main.rs` — calls `commands::registry::all()` to get the command list, delegates to `app::show_menu()` for selection, `app::get_user_input()` for any required text input, then calls `execute()` on the selected command.
-2. `app.rs` — `show_menu()` renders a `dialoguer::Select` prompt. `get_user_input()` renders a `dialoguer::Input` prompt if the command has an `input_prompt`.
-3. `commands/mod.rs` — defines the `AppCommand` trait (`label`, `input_prompt`, `execute`) and the shared `run_in_terminal` helper.
-4. `commands/registry.rs` — `all()` returns the ordered list of boxed commands.
-5. `lib.rs` — exposes `pub mod commands` for use in integration tests.
+1. `crates/scripts/src/main.rs` — calls `app::run()`.
+2. `crates/scripts/src/app.rs` — gets the list from `scripts_commands::all()`, renders a `dialoguer::Select` menu (`show_menu()`), a `dialoguer::Input` prompt if the command has an `input_prompt` (`get_user_input()`), then calls `execute()` on the selected command.
+3. `crates/scripts-core/src/lib.rs` — defines the `AppCommand` trait (`label`, `input_prompt`, `execute`) and `run_in_terminal`.
+4. `crates/scripts-commands/src/lib.rs` — declares the command modules and `all()`; re-exports `AppCommand`.
 
 **`AppCommand` trait:**
 ```rust
@@ -60,11 +69,11 @@ Labels are grouped by category prefix (`Clone:`, `Install:`, `Update:`) so relat
 | 9 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
 | 10 | Exit | prints `Bye bye 👋`, then `std::process::exit(0)` — quits the app |
 
-`rust_files.sh` and `release-rust.sh` are embedded into the binary via `include_str!` and written to disk at runtime when needed.
+`crates/scripts-commands/rust_files.sh` is embedded into the binary via `include_str!` and written to disk at runtime when needed.
 
 ## Testing
 
-Integration tests live in `tests/commands_tests.rs` and import via the `scripts` crate (`lib.rs`). They verify the registry length, label order, and which commands require an input prompt.
+Integration tests live in `crates/scripts-commands/tests/commands_tests.rs` and use `scripts_commands::all()`. They verify the registry length, label order, and which commands require an input prompt.
 
 ## Code Style
 

@@ -1,0 +1,10 @@
+[package]
+name = "scripts"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+dialoguer.workspace = true
+scripts-commands.workspace = true
+scripts-core.workspace = true

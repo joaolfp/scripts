@@ -1,5 +1,5 @@
-use super::AppCommand;
 use anyhow::Result;
+use scripts_core::AppCommand;
 
 pub struct Exit;
 
