@@ -1,5 +1,6 @@
 mod clone_my_repo;
 mod exit;
+mod hoc;
 mod hoc_clone;
 mod install_claude;
 mod install_kiro;

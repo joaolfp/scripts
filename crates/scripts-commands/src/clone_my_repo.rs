@@ -1,5 +1,7 @@
 use anyhow::Result;
-use scripts_core::{AppCommand, run_in_terminal};
+use scripts_core::AppCommand;
+
+use crate::hoc::run_hoc;
 
 pub struct CloneMyRepo;
 
@@ -9,6 +11,6 @@ impl AppCommand for CloneMyRepo {
 	}
 
 	fn execute(&self, _input: &str) -> Result<()> {
-		run_in_terminal("hoc", &["m"])
+		run_hoc(&["m"])
 	}
 }
