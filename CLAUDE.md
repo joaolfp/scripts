@@ -9,7 +9,7 @@ All tasks are defined in `mise.toml` and run via `mise <task>`:
 ```sh
 mise build       # cargo build
 mise release     # cargo build --release
-mise cli         # cargo run (launch the TUI)
+mise cli         # cargo fmt --all, then cargo run (launch the TUI)
 mise test        # cargo test
 mise check       # cargo check
 mise lint        # cargo clippy --all-targets --all-features
