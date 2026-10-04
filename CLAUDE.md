@@ -65,9 +65,10 @@ Labels are grouped by category prefix (`Clone:`, `Install:`, `Update:`) so relat
 | 5 | Update: mise | `brew upgrade mise` |
 | 6 | Update: Rust | `rustup update` |
 | 7 | Update: Claude | `claude update` |
-| 8 | Releasor | `releasor -f <package>` |
-| 9 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
-| 10 | Exit | prints `Bye bye 👋`, then `std::process::exit(0)` — quits the app |
+| 8 | Update: Omarchy | `omarchy-update` |
+| 9 | Releasor | `releasor -f <package>` |
+| 10 | Create rust project | `cargo new <name>` + copies `rust_files.sh` |
+| 11 | Exit | prints `Bye bye 👋`, then `std::process::exit(0)` — quits the app |
 
 `crates/scripts-commands/rust_files.sh` is embedded into the binary via `include_str!` and written to disk at runtime when needed.
 

@@ -1,6 +1,6 @@
 #[test]
-fn registry_returns_eleven_commands() {
-	assert_eq!(scripts_commands::all().len(), 11);
+fn registry_returns_twelve_commands() {
+	assert_eq!(scripts_commands::all().len(), 12);
 }
 
 #[test]
@@ -19,6 +19,7 @@ fn registry_labels_in_order() {
 			"Update: mise",
 			"Update: Rust",
 			"Update: Claude",
+			"Update: Omarchy",
 			"Releasor",
 			"Create rust project",
 			"Exit",
@@ -39,6 +40,7 @@ fn commands_without_input_prompt() {
 		"Install: Claude",
 		"Install: Kiro",
 		"Update: Claude",
+		"Update: Omarchy",
 		"Exit",
 	];
 
